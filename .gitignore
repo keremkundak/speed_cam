@@ -9,4 +9,3 @@ __pycache__/
 *.engine
 *.csv
 *.mp4
-!assets/*.mp4

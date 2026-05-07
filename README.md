@@ -24,8 +24,6 @@ To simulate a real-world RTSP IP camera feed without relying on external network
 
 Below is a raw segment generated entirely on-device by the hardware encoder.
 
-*(Note: GitHub limits native video file sizes, but the file is embedded below for direct viewing if pulled locally)*
-
 <video src="./assets/demo_video.mp4" controls="controls" style="max-width: 100%;">
   Your browser does not support the video tag.
 </video>

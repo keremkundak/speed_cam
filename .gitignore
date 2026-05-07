@@ -1,0 +1,12 @@
+consumer_app/models/*
+!consumer_app/models/.gitkeep
+consumer_app/outputs/*
+!consumer_app/outputs/.gitkeep
+producer_app/videos/*
+!producer_app/videos/.gitkeep
+__pycache__/
+*.pyc
+*.engine
+*.csv
+*.mp4
+!assets/*.mp4

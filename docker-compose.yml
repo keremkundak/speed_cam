@@ -1,0 +1,59 @@
+services:
+  producer:
+    build:
+      context: ./producer_app
+      network: host
+    command: python3 producer.py
+    container_name: video_producer
+    network_mode: "host"
+    restart: on-failure
+    runtime: nvidia
+    volumes:
+      - ./producer_app/videos:/app/videos:ro
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - REDIS_HOST=127.0.0.1
+      - REDIS_PORT=6379
+      - STREAM_KEY=video:frames
+      - VIDEO_PATH=/app/videos/traffic_long_720p.mp4
+      - MAX_LEN=500
+      - JPEG_QUALITY=80
+      - REDIS_STARTUP_DELAY=2
+
+  consumer:
+    build:
+      context: ./consumer_app
+      network: host
+    container_name: trt_consumer
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - REDIS_HOST=127.0.0.1
+      - REDIS_PORT=6379
+      - STREAM_KEY=video:frames
+      - MODEL_PATH=/app/models/yolo26n.engine
+      - OUTPUT_DIR=/app/outputs
+      - FRAME_WIDTH=1280
+      - FRAME_HEIGHT=720
+      # Speed zone polygon: bottom-left;top-left;top-right;bottom-right (image pixels)
+      - SPEED_ZONE=435,420;590,202;938,225;1055,464
+      # Real-world dimensions of the speed zone in metres
+      - ZONE_LENGTH_M=13.2
+      - ZONE_WIDTH_M=9.0
+      # Rolling video: 1-minute segments, keep last 5
+      - SEGMENT_DURATION_S=60
+      - MAX_SEGMENTS=5
+      # Rolling CSV: keep last 30 minutes of detections
+      - CSV_WINDOW_S=1800
+      - SPEED_SMOOTH_WINDOW=6
+      - MIN_ZONE_TIME_S=0.2
+      - INFERENCE_SIZE=640
+      - DEVICE=cuda:0
+      # Video codec: 'hw' uses Jetson hardware H.264 encoder (nvv4l2h264enc) via GStreamer.
+      # Fallback to mp4v or avc1 if the hardware does not support NVENC.
+      - VIDEO_CODEC=hw
+    volumes:
+      - ./consumer_app/outputs:/app/outputs
+      - ./consumer_app/models:/app/models # persists the exported .engine across restarts
+    network_mode: "host"
+    restart: on-failure

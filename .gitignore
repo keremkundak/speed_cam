@@ -9,4 +9,46 @@ __pycache__/
 *.engine
 *.csv
 *.mp4
-!assets/*.mp4
+!assets/*.mp4 
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+ 
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+ 
+# TensorRT and model files
+*.engine
+*.plan
+*.pt
+*.weights
+ 
+# Environment variables
+.env
+.env.local
+.env.*.local
+ 
+# Logs and database
+*.log
+logs/
+*.db
+*.sqlite
+*.sqlite3
+ 
+# OS
+.DS_Store
+Thumbs.db
+ 
+# Temp
+*.tmp
+.cache/

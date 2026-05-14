@@ -10,5 +10,3 @@ __pycache__/
 *.csv
 *.mp4
 !assets/*.mp4
-.env
-.engine

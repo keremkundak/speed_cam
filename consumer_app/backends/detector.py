@@ -15,12 +15,21 @@ try:
     HAS_JETSON_STATS = True
 except ImportError:
     HAS_JETSON_STATS = False
+    jetson_stats = None
 
 try:
     import pynvml
     HAS_PYNVML = True
 except ImportError:
     HAS_PYNVML = False
+    pynvml = None
+
+try:
+    import torch
+    HAS_TORCH = True
+except ImportError:
+    HAS_TORCH = False
+    torch = None
 
 from .hw_backend import HWBackend
 
@@ -109,12 +118,14 @@ def _detect_torch_cuda() -> bool:
     Returns:
         True if torch.cuda is available and has devices
     """
+    if not HAS_TORCH:
+        return False
+        
     try:
-        import torch
         if torch.cuda.is_available():
             logger.info(f"Detected CUDA via PyTorch ({torch.cuda.get_device_name(0)})")
             return True
-    except ImportError:
+    except Exception:
         pass
 
     return False

@@ -127,6 +127,7 @@ class TestCUDADetection(unittest.TestCase):
 class TestTorchCUDADetection(unittest.TestCase):
     """Test PyTorch CUDA detection fallback."""
 
+    @patch("consumer_app.backends.detector.HAS_TORCH", True)
     @patch("consumer_app.backends.detector.torch")
     def test_torch_cuda_available(self, mock_torch):
         """Test torch.cuda.is_available() returns True."""
@@ -136,6 +137,7 @@ class TestTorchCUDADetection(unittest.TestCase):
         result = _detect_torch_cuda()
         self.assertTrue(result)
 
+    @patch("consumer_app.backends.detector.HAS_TORCH", True)
     @patch("consumer_app.backends.detector.torch")
     def test_torch_cuda_unavailable(self, mock_torch):
         """Test torch.cuda.is_available() returns False."""

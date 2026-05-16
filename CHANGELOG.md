@@ -27,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Graceful fallback chain with proper logging
   - Comprehensive unit tests (13 test cases)
 
-- [ ] v1-0003: Decode backends (Jetson NVDEC, CUDA, CPU)
+- [x] v1-0003: Decode backends (Jetson NVDEC, CUDA, CPU)
   - GStreamer NVDEC pipeline for Jetson (preserve alpha code)
   - OpenCV CUDA decode for NVIDIA GPUs
   - ffmpeg-python fallback for CPU-only systems

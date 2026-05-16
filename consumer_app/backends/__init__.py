@@ -12,10 +12,18 @@ from .detector import (
     get_backend,
     clear_backend_cache,
 )
+from .frame_source import FrameSource
+from .decode_jetson import JetsonFrameSource
+from .decode_cuda import CUDAFrameSource
+from .decode_cpu import CPUFrameSource
 
 __all__ = [
     "HWBackend",
     "detect_hardware",
     "get_backend",
     "clear_backend_cache",
+    "FrameSource",
+    "JetsonFrameSource",
+    "CUDAFrameSource",
+    "CPUFrameSource",
 ]
